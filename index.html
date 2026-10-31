@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A nine-module beginner course on keeping up with AI, agent harnesses, generative media, parallel agents, websites, tech stacks, and GitHub.">
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; font: 14px/1.5 system-ui, sans-serif; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<title>Brother's Class of AI Mastery 101</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: class notes on graph paper. Sticky syllabus rail on the left, one reading column, highlighter marks the things to remember. */
+:root {
+  --paper: #f5f7fc;
+  --sheet: #ffffff;
+  --ink: #18264a;
+  --muted: #56627d;
+  --rule: #dbe1ee;
+  --grid: #e4e9f4;
+  --accent: #2747c9;
+  --accent-soft: #e6ebfb;
+  --hl-bg: #ffe55a;
+  --hl-fg: #18264a;
+  --good: #1d7f48;
+  --good-soft: #e1f3e8;
+  --warn: #9a5b00;
+  --warn-soft: #fbf0dc;
+  --code-bg: #eef1f8;
+
+  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --step--1: 0.84rem;
+  --step-0: 1.06rem;
+  --step-1: 1.3rem;
+  --step-2: 1.7rem;
+  --step-3: clamp(2rem, 4.6vw, 3.1rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1528; --sheet: #161e36; --ink: #e5e9f5; --muted: #9ba6c2;
+    --rule: #263153; --grid: #19223d; --accent: #8ea6ff; --accent-soft: #1e2a52;
+    --hl-bg: #6b5a0c; --hl-fg: #fff4b8; --good: #6fd39a; --good-soft: #12301f;
+    --warn: #f0b860; --warn-soft: #33260f; --code-bg: #1b2440;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1528; --sheet: #161e36; --ink: #e5e9f5; --muted: #9ba6c2;
+  --rule: #263153; --grid: #19223d; --accent: #8ea6ff; --accent-soft: #1e2a52;
+  --hl-bg: #6b5a0c; --hl-fg: #fff4b8; --good: #6fd39a; --good-soft: #12301f;
+  --warn: #f0b860; --warn-soft: #33260f; --code-bg: #1b2440;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: var(--step-0);
+  line-height: 1.65;
+}
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3, h4 { font-family: var(--f-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h3 { font-size: var(--step-1); font-weight: 700; margin-top: 2.2rem; }
+h4 { font-size: var(--step-0); font-weight: 700; margin-top: 1.4rem; }
+p { margin: 0.9rem 0 0; }
+ul, ol { margin: 0.8rem 0 0; padding-left: 1.3rem; }
+li + li { margin-top: 0.35rem; }
+code, kbd { font-family: var(--f-mono); font-size: 0.86em; background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 4px; }
+mark { background: var(--hl-bg); color: var(--hl-fg); padding: 0 0.15em; border-radius: 2px; }
+.label { font-family: var(--f-mono); font-size: var(--step--1); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- header ---------- */
+.masthead {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.masthead-inner {
+  max-width: 1180px; margin: 0 auto;
+  padding-block: 56px 44px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 18px;
+}
+.masthead h1 { font-size: var(--step-3); font-weight: 800; letter-spacing: -0.02em; max-width: 18ch; }
+.masthead h1 mark { padding: 0 0.12em; }
+.masthead .lede { font-size: var(--step-1); line-height: 1.5; max-width: 60ch; margin: 0; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.meta-row span { font-family: var(--f-mono); font-size: var(--step--1); color: var(--muted); }
+.meta-row b { color: var(--ink); font-weight: 600; }
+
+/* ---------- layout ---------- */
+.layout {
+  max-width: 1180px; margin: 0 auto;
+  padding-block: 36px 80px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 56px;
+}
+@media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+
+/* syllabus rail */
+.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px); align-self: start; }
+@media (max-width: 900px) { .rail { position: static; } }
+.rail details { border: 1px solid var(--rule); background: var(--sheet); border-radius: 10px; }
+.rail summary { list-style: none; cursor: pointer; padding: 14px 16px; display: grid; gap: 8px; }
+.rail summary::-webkit-details-marker { display: none; }
+.rail .sum-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.rail .sum-top strong { font-family: var(--f-display); font-size: 1.05rem; }
+.progress { height: 6px; border-radius: 3px; background: var(--rule); overflow: hidden; }
+.progress i { display: block; height: 100%; width: 0; background: var(--good); transition: width .3s; }
+.rail ol { list-style: none; padding: 4px 8px 12px; margin: 0; border-top: 1px solid var(--rule); }
+.rail li + li { margin-top: 0; }
+.rail a {
+  display: grid; grid-template-columns: 26px 1fr 16px; gap: 6px; align-items: baseline;
+  padding: 7px 8px; border-radius: 6px; color: var(--ink); text-decoration: none;
+  font-family: var(--f-display); font-size: 0.95rem; line-height: 1.3;
+}
+.rail a .n { font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); }
+.rail a .tick { color: var(--good); font-size: 0.85rem; visibility: hidden; }
+.rail a.done .tick { visibility: visible; }
+.rail a:hover { background: var(--accent-soft); }
+.rail a.active { background: var(--accent-soft); color: var(--accent); }
+.rail .toggle-hint { display: none; }
+@media (max-width: 900px) { .rail .toggle-hint { display: inline; } }
+
+/* ---------- modules ---------- */
+main { min-width: 0; }
+.module { max-width: 720px; padding-bottom: 56px; margin-bottom: 56px; border-bottom: 1px dashed var(--rule); }
+.module:last-of-type { border-bottom: 0; }
+.module-head { display: grid; gap: 8px; }
+.module-head h2 { font-size: var(--step-2); font-weight: 800; letter-spacing: -0.01em; }
+.module-head .why { color: var(--muted); font-style: italic; margin: 0; }
+
+.callout { margin-top: 1.4rem; padding: 16px 18px; border-radius: 10px; background: var(--accent-soft); }
+.callout.warn { background: var(--warn-soft); }
+.callout.warn .label { color: var(--warn); }
+.callout p:first-of-type { margin-top: 0.3rem; }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 1.2rem; }
+.tile { border: 1px solid var(--rule); background: var(--sheet); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+.tile h4 { margin: 0; font-size: 1.02rem; }
+.tile p { font-size: 0.97rem; margin-top: 0.4rem; }
+.tile .label { display: block; margin-bottom: 4px; }
+
+/* subreddit list */
+.subs { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0 18px; margin-top: 1rem; padding: 0; list-style: none; }
+.subs li { margin: 0; padding: 10px 0; border-top: 1px solid var(--rule); font-size: 0.95rem; line-height: 1.45; }
+.subs a { font-family: var(--f-mono); font-weight: 600; font-size: 0.9rem; text-decoration: none; display: inline-block; margin-bottom: 2px; }
+
+/* tool cards */
+.tools { display: grid; gap: 16px; margin-top: 1.4rem; }
+.tool { border: 1px solid var(--rule); background: var(--sheet); border-radius: 12px; padding: 18px 20px; min-width: 0; }
+.tool-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; }
+.tool-top h4 { margin: 0; font-size: var(--step-1); }
+.tool .facts { margin: 10px 0 0; display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; font-size: 0.95rem; }
+.tool .facts dt { font-family: var(--f-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); padding-top: 3px; }
+.tool .facts dd { margin: 0; }
+@media (max-width: 520px) { .tool .facts { grid-template-columns: 1fr; } .tool .facts dd { margin-bottom: 6px; } }
+.pc { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+@media (max-width: 600px) { .pc { grid-template-columns: 1fr; } }
+.pc > div { border-radius: 8px; padding: 12px 14px; min-width: 0; }
+.pc .pros { background: var(--good-soft); }
+.pc .cons { background: var(--warn-soft); }
+.pc .pros .label { color: var(--good); }
+.pc .cons .label { color: var(--warn); }
+.pc ul { margin-top: 6px; font-size: 0.95rem; }
+
+/* tables */
+.table-wrap { overflow-x: auto; margin-top: 1.2rem; border: 1px solid var(--rule); border-radius: 10px; background: var(--sheet); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.94rem; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--f-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-family: var(--f-display); font-weight: 700; }
+
+/* diagrams */
+figure { margin: 1.4rem 0 0; }
+.diagram { overflow-x: auto; border: 1px solid var(--rule); border-radius: 10px; background: var(--sheet); padding: 14px; }
+.diagram svg { display: block; width: 100%; min-width: 560px; height: auto; }
+figcaption { font-size: 0.88rem; color: var(--muted); margin-top: 8px; }
+svg .box { fill: var(--paper); stroke: var(--rule); stroke-width: 1.5; }
+svg .box-accent { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.5; }
+svg .box-good { fill: var(--good-soft); stroke: var(--good); stroke-width: 1.5; }
+svg .box-hl { fill: var(--hl-bg); stroke: none; }
+svg .t { fill: var(--ink); font-family: var(--f-display); font-size: 15px; font-weight: 700; }
+svg .s { fill: var(--muted); font-family: var(--f-mono); font-size: 11.5px; }
+svg .thl { fill: var(--hl-fg); font-family: var(--f-mono); font-size: 11.5px; font-weight: 600; }
+svg .line { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+svg .line-accent { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .arrowhead { fill: var(--muted); }
+svg .arrowhead-accent { fill: var(--accent); }
+
+/* code */
+pre { margin: 1rem 0 0; padding: 14px 16px; background: var(--code-bg); border-radius: 8px; overflow-x: auto; font-family: var(--f-mono); font-size: 0.85rem; line-height: 1.6; }
+pre code { background: none; padding: 0; font-size: inherit; }
+pre .c { color: var(--muted); }
+
+/* steps (real sequences only) */
+.steps { counter-reset: s; list-style: none; padding: 0; margin-top: 1rem; display: grid; gap: 10px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 30px 1fr; gap: 10px; margin: 0; }
+.steps li::before { content: counter(s); font-family: var(--f-mono); font-size: 0.8rem; font-weight: 600; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--paper); margin-top: 2px; }
+
+/* takeaways / quick check / complete */
+.takeaways { margin-top: 2rem; padding: 16px 18px; border-left: 4px solid var(--hl-bg); background: var(--sheet); border-radius: 0 10px 10px 0; }
+.takeaways ul { margin-top: 6px; }
+details.check { margin-top: 14px; border: 1px solid var(--rule); border-radius: 10px; background: var(--sheet); }
+details.check summary { cursor: pointer; padding: 12px 16px; font-family: var(--f-display); font-weight: 700; }
+details.check summary span { font-family: var(--f-mono); font-weight: 400; font-size: var(--step--1); color: var(--muted); margin-right: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+details.check .ans { padding: 0 16px 14px; }
+details.check .ans p:first-child { margin-top: 0; }
+.complete { margin-top: 18px; display: inline-flex; align-items: center; gap: 10px; font-family: var(--f-display); font-weight: 700; font-size: 0.98rem; padding: 10px 16px; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
+.complete .box { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid currentColor; display: grid; place-items: center; font-size: 12px; line-height: 1; }
+.complete[aria-pressed="true"] { background: var(--good); border-color: var(--good); color: var(--sheet); }
+.complete[aria-pressed="true"] .box::after { content: "✓"; }
+
+footer { max-width: 1180px; margin: 0 auto; padding-block: 0 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <span class="label">Course syllabus · AI-101</span>
+    <h1>Brother's Class of AI Mastery <mark>101</mark></h1>
+    <p class="lede">How to keep up with AI, which tools are worth your time, how to get agents doing real work for you, and the website basics you need to ship what they build.</p>
+    <div class="meta-row">
+      <span><b>9</b> modules</span>
+      <span>about <b>3 hrs</b> of reading</span>
+      <span>current as of <b>Oct 2026</b></span>
+      <span>no experience needed</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="rail" aria-label="Syllabus">
+    <details id="syllabus" open>
+      <summary>
+        <div class="sum-top"><strong>Syllabus</strong><span class="label" id="progress-text">0 / 9 done</span></div>
+        <div class="progress" aria-hidden="true"><i id="progress-bar"></i></div>
+        <span class="label toggle-hint">Tap to show or hide</span>
+      </summary>
+      <ol id="toc">
+        <li><a href="#keep-up" data-mod="keep-up"><span class="n">01</span><span>Keeping up with AI</span><span class="tick">✓</span></a></li>
+        <li><a href="#llm-vs-agent" data-mod="llm-vs-agent"><span class="n">02</span><span>LLMs vs. agentic coding</span><span class="tick">✓</span></a></li>
+        <li><a href="#harnesses" data-mod="harnesses"><span class="n">03</span><span>Claude Code, Codex, Antigravity</span><span class="tick">✓</span></a></li>
+        <li><a href="#media" data-mod="media"><span class="n">04</span><span>Generative media tools</span><span class="tick">✓</span></a></li>
+        <li><a href="#parallel" data-mod="parallel"><span class="n">05</span><span>Running agents in parallel</span><span class="tick">✓</span></a></li>
+        <li><a href="#websites" data-mod="websites"><span class="n">06</span><span>How websites work</span><span class="tick">✓</span></a></li>
+        <li><a href="#stacks" data-mod="stacks"><span class="n">07</span><span>Tech stacks</span><span class="tick">✓</span></a></li>
+        <li><a href="#github" data-mod="github"><span class="n">08</span><span>GitHub</span><span class="tick">✓</span></a></li>
+        <li><a href="#final" data-mod="final"><span class="n">09</span><span>Final project</span><span class="tick">✓</span></a></li>
+      </ol>
+    </details>
+  </nav>
+
+  <main>
+
+<!-- ================= 01 ================= -->
+<section class="module" id="keep-up">
+  <div class="module-head">
+    <span class="label">Module 01 · 20 min</span>
+    <h2>Keeping up when everything changes every week</h2>
+    <p class="why">The tool that was best in January can be third place by March. Learning how to stay current matters more than memorizing any one tool.</p>
+  </div>
+
+  <p>Nobody can follow everything. The goal is a small, steady routine that catches the big shifts without eating your whole day. Think of it as three layers: a quick daily skim, a weekly catch-up, and going straight to the source when something actually affects you.</p>
+
+  <h3>The routine</h3>
+  <div class="grid2">
+    <div class="tile"><span class="label">Daily · 10 min</span><h4>Skim the headlines</h4><p>One newsletter in your inbox and a scroll through two or three subreddits. You're only looking for "did something big ship?"</p></div>
+    <div class="tile"><span class="label">Weekly · 45 min</span><h4>Watch or read one deep dive</h4><p>A YouTube breakdown or podcast that explains a release in detail. Try one new thing you heard about.</p></div>
+    <div class="tile"><span class="label">As needed</span><h4>Go to the official source</h4><p>Before you change your workflow, read the company's own announcement or changelog. Reddit gets excited; changelogs tell you what actually changed.</p></div>
+    <div class="tile"><span class="label">Monthly</span><h4>Re-check your toolkit</h4><p>Ask: is there a tool that does my most common task better or cheaper now? Swap only if the answer is clearly yes.</p></div>
+  </div>
+
+  <h3>Subreddits worth joining</h3>
+  <p>Sort by <b>Top → This week</b> instead of Hot. You'll see what mattered without the noise.</p>
+  <ul class="subs">
+    <li><a href="https://www.reddit.com/r/singularity/" target="_blank" rel="noopener">r/singularity</a><br>Big-picture news and every major model launch, usually within minutes. Very hype-prone.</li>
+    <li><a href="https://www.reddit.com/r/LocalLLaMA/" target="_blank" rel="noopener">r/LocalLLaMA</a><br>Despite the name, one of the most technical and level-headed AI news subs. Great for benchmarks and open models.</li>
+    <li><a href="https://www.reddit.com/r/ClaudeAI/" target="_blank" rel="noopener">r/ClaudeAI</a><br>Claude and Claude Code tips, workflows, and complaints about usage limits.</li>
+    <li><a href="https://www.reddit.com/r/OpenAI/" target="_blank" rel="noopener">r/OpenAI</a><br>ChatGPT, Codex, and OpenAI announcements.</li>
+    <li><a href="https://www.reddit.com/r/ChatGPT/" target="_blank" rel="noopener">r/ChatGPT</a><br>Huge and mostly casual. Good for seeing how regular people use AI.</li>
+    <li><a href="https://www.reddit.com/r/GeminiAI/" target="_blank" rel="noopener">r/GeminiAI</a><br>Gemini, Nano Banana, Veo, and Antigravity news.</li>
+    <li><a href="https://www.reddit.com/r/ChatGPTCoding/" target="_blank" rel="noopener">r/ChatGPTCoding</a><br>AI coding across every tool, not just ChatGPT. Lots of head-to-head comparisons.</li>
+    <li><a href="https://www.reddit.com/r/vibecoding/" target="_blank" rel="noopener">r/vibecoding</a><br>Non-programmers building apps with AI. Very relevant if you're new to code.</li>
+    <li><a href="https://www.reddit.com/r/artificial/" target="_blank" rel="noopener">r/artificial</a><br>General AI news and discussion, a bit calmer than r/singularity.</li>
+    <li><a href="https://www.reddit.com/r/MachineLearning/" target="_blank" rel="noopener">r/MachineLearning</a><br>Research papers and the science side. Dense, but the best signal if you want depth.</li>
+    <li><a href="https://www.reddit.com/r/StableDiffusion/" target="_blank" rel="noopener">r/StableDiffusion</a><br>Image and video generation of all kinds, open and closed models.</li>
+    <li><a href="https://www.reddit.com/r/aivideo/" target="_blank" rel="noopener">r/aivideo</a><br>What people are making with Veo, Seedance, Kling and others. Good for seeing real quality.</li>
+    <li><a href="https://www.reddit.com/r/SunoAI/" target="_blank" rel="noopener">r/SunoAI</a><br>AI music: prompting tips, new versions, and what's possible.</li>
+  </ul>
+
+  <h3>Beyond Reddit</h3>
+  <div class="grid2">
+    <div class="tile"><span class="label">Newsletters</span><p><b>The Rundown AI</b> and <b>TLDR AI</b> for daily summaries. <b>Ben's Bites</b> for builder-focused news. <b>Import AI</b> for a weekly research read.</p></div>
+    <div class="tile"><span class="label">YouTube</span><p><b>AI Explained</b> for careful breakdowns. <b>Matthew Berman</b> for tool tests. <b>Two Minute Papers</b> for research. <b>Fireship</b> for fast developer news.</p></div>
+    <div class="tile"><span class="label">Blogs &amp; podcasts</span><p><b>Simon Willison's blog</b> (simonwillison.net) tests nearly every new model hands-on. <b>Latent Space</b> is the go-to podcast for AI engineering.</p></div>
+    <div class="tile"><span class="label">Leaderboards</span><p><b>LMArena</b> ranks models by blind human votes. <b>Artificial Analysis</b> compares speed, price and quality side by side.</p></div>
+    <div class="tile"><span class="label">Official sources</span><p>The news pages and changelogs for Anthropic, OpenAI, and Google DeepMind. Follow these companies on X too, since that's where launches land first.</p></div>
+    <div class="tile"><span class="label">Use the AI itself</span><p>Ask Claude or ChatGPT with web search on: "What changed in AI coding tools this week? Link sources." It's a fast way to catch up after a break.</p></div>
+  </div>
+
+  <div class="callout warn">
+    <span class="label">Hype filter</span>
+    <p>Every week someone posts that a new model "changes everything." Before you believe it, check three things: is there an official announcement, can you actually use it today, and do people who tested it agree? Demos are cherry-picked. Your own test on your own task is the only review that counts.</p>
+  </div>
+
+  <div class="takeaways">
+    <span class="label">Takeaways</span>
+    <ul>
+      <li>A small daily habit beats occasional binge-reading.</li>
+      <li>Reddit for speed, official changelogs for truth.</li>
+      <li>Only switch tools when one is clearly better for <em>your</em> work.</li>
+    </ul>
+  </div>
+  <details class="check"><summary><span>Quick check</span>A video claims a new model beats everything. What do you do first?</summary>
+    <div class="ans"><p>Look for the official announcement and see if you can use it now. Then try it on a task you do often and compare against what you already use.</p></div>
+  </details>
+  <button class="complete" type="button" id="done-keep-up" data-mod="keep-up" aria-pressed="false"><span class="box"></span>Mark module complete</button>
+</section>
+
+<!-- ================= 02 ================= -->
+<section class="module" id="llm-vs-agent">
+  <div class="module-head">
+    <span class="label">Module 02 · 15 min</span>
+    <h2>LLMs vs. agentic coding</h2>
+    <p class="why">This is the single most important idea in the course. Once it clicks, every tool makes more sense.</p>
+  </div>
+
+  <p>An <mark>LLM</mark> (large language model) is the brain. Claude, GPT, and Gemini are LLMs. On its own, an LLM takes text in and puts text out. That's all it can do.</p>
+  <p>When you use ChatGPT or Claude in a chat window, you are the hands. It writes code, you copy it, paste it into a file, run it, see an error, paste the error back, and repeat. The model never touches your computer.</p>
+  <p><mark>Agentic coding</mark> gives the model hands. A program called a <b>harness</b> wraps the LLM and gives it tools: read files, write files, run commands, search the web, open a browser. The model then works in a loop. It plans, acts, checks the result, and keeps going until the job is done, asking you for permission on anything risky.</p>
+
+  <figure>
+    <div class="diagram">
+      <svg viewBox="0 0 760 270" role="img" aria-label="Chat: you carry text between the model and your computer. Agent: the harness lets the model act on your computer in a loop.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker>
+          <marker id="ara" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arrowhead-accent"/></marker>
+        </defs>
+        <text x="20" y="26" class="s">CHAT (LLM ONLY)</text>
+        <rect x="20" y="40" width="130" height="56" rx="8" class="box"/>
+        <text x="85" y="73" text-anchor="middle" class="t">LLM</text>
+        <rect x="200" y="40" width="130" height="56" rx="8" class="box-hl"/>
+        <text x="265" y="66" text-anchor="middle" class="t" style="fill:var(--hl-fg)">You</text>
+        <text x="265" y="84" text-anchor="middle" class="thl">copy · paste · run</text>
+        <rect x="380" y="40" width="150" height="56" rx="8" class="box"/>
+        <text x="455" y="73" text-anchor="middle" class="t">Your computer</text>
+        <path d="M150 60 H198" class="line" marker-end="url(#ar)"/>
+        <path d="M198 78 H152" class="line" marker-end="url(#ar)"/>
+        <path d="M330 60 H378" class="line" marker-end="url(#ar)"/>
+        <path d="M378 78 H332" class="line" marker-end="url(#ar)"/>
+
+        <text x="20" y="146" class="s">AGENT (LLM + HARNESS + TOOLS)</text>
+        <rect x="20" y="160" width="130" height="56" rx="8" class="box-hl"/>
+        <text x="85" y="186" text-anchor="middle" class="t" style="fill:var(--hl-fg)">You</text>
+        <text x="85" y="204" text-anchor="middle" class="thl">give the goal</text>
+        <rect x="200" y="152" width="330" height="72" rx="10" class="box-accent"/>
+        <text x="365" y="178" text-anchor="middle" class="t">Harness  (Claude Code, Codex…)</text>
+        <text x="365" y="200" text-anchor="middle" class="s">LLM plans → uses a tool → checks → repeats</text>
+        <rect x="580" y="160" width="160" height="56" rx="8" class="box-good"/>
+        <text x="660" y="186" text-anchor="middle" class="t">Your computer</text>
+        <text x="660" y="204" text-anchor="middle" class="s">files · terminal · browser</text>
+        <path d="M150 188 H198" class="line" marker-end="url(#ar)"/>
+        <path d="M530 178 H578" class="line-accent" marker-end="url(#ara)"/>
+        <path d="M578 200 H532" class="line-accent" marker-end="url(#ara)"/>
+        <path d="M300 226 C300 258, 430 258, 430 226" class="line-accent" marker-end="url(#ara)"/>
+        <text x="365" y="264" text-anchor="middle" class="s">loop until done</text>
+      </svg>
+    </div>
+    <figcaption>In a chat, you're the go-between. With an agent, the harness lets the model work on your files directly.</figcaption>
+  </figure>
+
+  <h3>Same brain, different jobs</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th></th><th>Chat with an LLM</th><th>Agentic coding</th></tr></thead>
+      <tbody>
+        <tr><td>Examples</td><td>ChatGPT, Claude.ai, Gemini app, Perplexity</td><td>Claude Code, Codex, Antigravity, Cursor, GitHub Copilot agent</td></tr>
+        <tr><td>Can touch your files?</td><td>No. You copy and paste.</td><td>Yes, with your permission.</td></tr>
+        <tr><td>Can run and test code?</td><td>Only in a sandbox, if at all</td><td>Yes, on your machine or a cloud machine</td></tr>
+        <tr><td>Best for</td><td>Questions, writing, brainstorming, one-off snippets</td><td>Building and changing whole projects</td></tr>
+        <tr><td>Your role</td><td>Operator</td><td>Manager and reviewer</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Words you'll hear</h3>
+  <div class="grid2">
+    <div class="tile"><h4>Model</h4><p>The LLM itself, like Claude Opus, GPT-5, or Gemini 3. Bigger models are smarter but slower and pricier.</p></div>
+    <div class="tile"><h4>Harness</h4><p>The app that runs the model as an agent: gives it tools, asks you for permission, remembers project notes.</p></div>
+    <div class="tile"><h4>Context window</h4><p>How much the model can "see" at once. Long sessions fill it up, so harnesses summarize older parts.</p></div>
+    <div class="tile"><h4>MCP</h4><p>Model Context Protocol. A standard plug that lets agents connect to other apps like GitHub, Figma, or a database.</p></div>
+  </div>
+
+  <div class="takeaways">
+    <span class="label">Takeaways</span>
+    <ul>
+      <li>The LLM is the brain. The harness is the body that lets it act.</li>
+      <li>Chat is for thinking. Agents are for doing.</li>
+      <li>With an agent, your job shifts from typing code to describing goals and reviewing results.</li>
+    </ul>
+  </div>
+  <details class="check"><summary><span>Quick check</span>Claude.ai and Claude Code use the same models. Why do they feel so different?</summary>
+    <div class="ans"><p>Claude Code is a harness. It gives the model tools to read and edit your files and run commands, so it can work in a loop instead of just replying with text.</p></div>
+  </details>
+  <button class="complete" type="button" id="done-llm-vs-agent" data-mod="llm-vs-agent" aria-pressed="false"><span class="box"></span>Mark module complete</button>
+</section>
+
+<!-- ================= 03 ================= -->
+<section class="module" id="harnesses">
+  <div class="module-head">
+    <span class="label">Module 03 · 25 min</span>
+    <h2>The big three agent harnesses</h2>
+    <p class="why">These three come from the three biggest AI labs. They share most ideas, so skills you learn in one carry over.</p>
+  </div>
+
+  <p>Each company pairs its harness with its own models. Pick one as your main tool and learn it well. Trying the others now and then keeps you honest about what's better.</p>
+
+  <div class="tools">
+    <article class="tool">
+      <div class="tool-top"><h4>Claude Code</h4><span class="label">Anthropic</span></div>
+      <dl class="facts">
+        <dt>Runs in</dt><dd>Terminal (CLI), Claude desktop app, the web at claude.ai/code, VS Code and JetBrains extensions</dd>
+        <dt>Models</dt><dd>Claude (Opus, Sonnet, Haiku)</dd>
+        <dt>Cost</dt><dd>Included with Claude Pro and Max plans; heavier use needs a higher plan or pay-per-use API</dd>
+      </dl>
+      <div class="pc">
+        <div class="pros"><span class="label">Pros</span><ul>
+          <li>Very strong at long, multi-step tasks across many files</li>
+          <li>Highly customizable: project notes (CLAUDE.md), skills, hooks, plugins, MCP connections, subagents</li>
+          <li>Easy parallel sessions, including isolated copies of a project (worktrees)</li>
+          <li>Desktop app adds a built-in browser preview, so it can check its own work visually</li>
+        </ul></div>
+        <div class="cons"><span class="label">Cons</span><ul>
+          <li>Only runs Claude models</li>
+          <li>Usage limits can bite on heavy days with the top model</li>
+          <li>The terminal version can feel intimidating at first (the desktop app helps)</li>
+        </ul></div>
+      </div>
+    </article>
+
+    <article class="tool">
+      <div class="tool-top"><h4>Codex</h4><span class="label">OpenAI</span></div>
+      <dl class="facts">
+        <dt>Runs in</dt><dd>Open-source terminal CLI, Codex desktop app, IDE extension, and cloud tasks inside ChatGPT</dd>
+        <dt>Models</dt><dd>OpenAI's GPT coding models</dd>
+        <dt>Cost</dt><dd>Included with ChatGPT Plus, Pro, and business plans, with limits by tier</dd>
+      </dl>
+      <div class="pc">
+        <div class="pros"><span class="label">Pros</span><ul>
+          <li>Comes with a ChatGPT subscription many people already pay for</li>
+          <li>Cloud tasks: hand off a job, close the laptop, come back to a finished pull request</li>
+          <li>Strong at code review and careful, precise edits</li>
+          <li>The CLI is open source and updated very frequently</li>
+        </ul></div>
+        <div class="cons"><span class="label">Cons</span><ul>
+          <li>Only runs OpenAI models</li>
+          <li>Cloud tasks are less hands-on; you steer less while it works</li>
+          <li>Changes so fast that tutorials go stale within weeks</li>
+        </ul></div>
+      </div>
+    </article>
+
+    <article class="tool">
+      <div class="tool-top"><h4>Antigravity</h4><span class="label">Google</span></div>
+      <dl class="facts">
+        <dt>Runs in</dt><dd>Launched in late 2025 as an "agent-first" code editor. Version 2.0 (May 2026) became a standalone agent app plus CLI, with the classic editor as a separate download.</dd>
+        <dt>Models</dt><dd>Mainly Gemini, with some other models offered</dd>
+        <dt>Cost</dt><dd>Free tier with usage quotas; higher limits through Google's paid AI plans</dd>
+      </dl>
+      <div class="pc">
+        <div class="pros"><span class="label">Pros</span><ul>
+          <li>Generous free access makes it the cheapest way to try agentic coding</li>
+          <li>Manager view built for running several agents at once</li>
+          <li>Agents can drive a browser and show screenshots and recordings as proof of work</li>
+        </ul></div>
+        <div class="cons"><span class="label">Cons</span><ul>
+          <li>The 2.0 switch removed the familiar editor overnight and upset many users</li>
+          <li>Quotas have changed several times; hard to plan around</li>
+          <li>Younger ecosystem with fewer guides and integrations</li>
+        </ul></div>
+      </div>
+    </article>
+  </div>
+
+  <h3>Other harnesses you'll see mentioned</h3>
+  <p><b>Cursor</b> and <b>Windsurf</b> are AI code editors that let you pick from many models. <b>GitHub Copilot</b> now has an agent mode and cloud agent. <b>Gemini CLI</b> is Google's free terminal agent. <b>OpenCode</b> is an open-source harness that works with almost any model.</p>
+
+  <div class="callout">
+    <span class="label">Brother's advice</span>
+    <p>Don't spend weeks comparing. Start with one, build three small projects, and you'll understand the others in an afternoon. The real skill is writing a clear request and reviewing the result, and that works everywhere.</p>
+  </div>
+
+  <div class="takeaways">
+    <span class="label">Takeaways</span>
+    <ul>
+      <li>Claude Code: most customizable, great for long tasks and parallel work.</li>
+      <li>Codex: great value if you already pay for ChatGPT; strong cloud handoff.</li>
+      <li>Antigravity: cheapest entry, multi-agent focus, but expect churn.</li>
+    </ul>
+  </div>
+  <details class="check"><summary><span>Quick check</span>Your friend has no budget and wants to try agentic coding this weekend. What would you suggest?</summary>
+    <div class="ans"><p>Antigravity's free tier or Gemini CLI. If they already pay for ChatGPT, Codex is included. If they pay for Claude Pro, Claude Code is included.</p></div>
+  </details>
+  <button class="complete" type="button" id="done-harnesses" data-mod="harnesses" aria-pressed="false"><span class="box"></span>Mark module complete</button>
+</section>
+
+<!-- ================= 04 ================= -->
+<section class="module" id="media">
+  <div class="module-head">
+    <span class="label">Module 04 · 25 min</span>
+    <h2>Generative media: images, video, music, voice</h2>
+    <p class="why">These tools make the logos, product shots, promo videos, jingles, and voiceovers that used to need a whole agency.</p>
+  </div>
+
+  <p>Version numbers in this space change monthly, so learn the <b>families</b> and check which version is current when you sit down to use one.</p>
+
+  <h3>Images</h3>
+  <div class="grid2">
+    <div class="tile"><span class="label">Google · Gemini app, AI Studio</span><h4>Nano Banana</h4><p>Google's image model family (Nano Banana, Pro, 2, and newer). Best-in-class at <b>editing</b>: change one thing in a photo and keep everything else, merge several images, keep a character consistent across shots, render readable text.</p></div>
+    <div class="tile"><span class="label">OpenAI · ChatGPT</span><h4>ChatGPT Images</h4><p>Image generation built right into ChatGPT. You describe and refine in conversation. Strong at following detailed instructions, text in images, infographics, and quick mockups.</p></div>
+    <div class="tile"><span class="label">Also strong</span><h4>Midjourney, Flux, Ideogram</h4><p><b>Midjourney</b> for the most artistic, stylized look. <b>Flux</b> for open models you can run yourself. <b>Ideogram</b> for logos and typography.</p></div>
+  </div>
+
+  <h3>Video</h3>
+  <div class="grid2">
+    <div class="tile"><span class="label">Google · Gemini, Flow</span><h4>Veo</h4><p>Google's video model (Veo 3.1 at time of writing). Generates video <b>with sound</b>: dialogue, effects and ambience in one pass. Use it inside <b>Flow</b>, Google's filmmaking tool, to string shots into scenes.</p></div>
+    <div class="tile"><span class="label">ByteDance · Dreamina / CapCut</span><h4>Seedance 2.5</h4><p>ByteDance's newest video model, released summer 2026. Reported to make up to <b>30-second clips</b> in one pass and accept up to 50 reference images, videos, or audio files to keep characters and style consistent.</p></div>
+    <div class="tile"><span class="label">Also strong</span><h4>Kling, Runway</h4><p><b>Kling</b> is a popular all-rounder with good motion. <b>Runway</b> has strong editing tools for working with your own footage.</p></div>
+  </div>
+
+  <h3>Music and voice</h3>
+  <div class="grid2">
+    <div class="tile"><span class="label">Music</span><h4>Suno</h4><p>Type a style and lyrics (or let it write them) and get a full song with vocals. v5 sounds close to radio quality. Paid plans give you commercial rights to what you make.</p></div>
+    <div class="tile"><span class="label">Voice &amp; audio</span><h4>ElevenLabs</h4><p>The leader in AI voice. Lifelike text-to-speech, voice cloning, dubbing into other languages, sound effects, and music. Great for voiceovers, ads, and phone menus.</p></div>
+  </div>
+
+  <h3>Picking the right tool</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>You want…</th><th>Start with</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Edit a real photo</td><td>Nano Banana</td><td>Keeps the rest of the photo untouched</td></tr>
+        <tr><td>Flyer or social graphic with text</td><td>ChatGPT Images or Ideogram</td><td>Reliable lettering</td></tr>
+        <tr><td>Short ad with sound</td><td>Veo</td><td>Audio and video generated together</td></tr>
+        <tr><td>Longer clip, same character throughout</td><td>Seedance 2.5</td><td>Longer single takes, many reference inputs</td></tr>
+        <tr><td>Jingle or background song</td><td>Suno</td><td>Full songs from a text prompt</td></tr>
+        <tr><td>Voiceover or narration</td><td>ElevenLabs</td><td>Most natural voices</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warn">
+    <span class="label">Rules of the road</span>
+    <p>Only clone a voice or use a face with that person's permission. Check each tool's terms before using output commercially; free tiers often don't include commercial rights. Many tools add invisible watermarks (like Google's SynthID), so assume AI content can be identified.</p>
+  </div>
+
+  <div class="takeaways">
+    <span class="label">Takeaways</span>
+    <ul>
+      <li>Learn the families: Nano Banana and ChatGPT for images, Veo and Seedance for video, Suno for music, ElevenLabs for voice.</li>
+      <li>Iterate. The first result is a draft; refine with follow-up prompts.</li>
+      <li>Permission and commercial rights matter.</li>
+    </ul>
+  </div>
+  <details class="check"><summary><span>Quick check</span>You need a 20-second promo with the same mascot in every shot. Which video model fits best?</summary>
+    <div class="ans"><p>Seedance 2.5. It can make longer single clips and takes many reference images to keep the mascot consistent. Add a voiceover with ElevenLabs if needed.</p></div>
+  </details>
+  <button class="complete" type="button" id="done-media" data-mod="media" aria-pressed="false"><span class="box"></span>Mark module complete</button>
+</section>
+
+<!-- ================= 05 ================= -->
+<section class="module" id="parallel">
+  <div class="module-head">
+    <span class="label">Module 05 · 20 min</span>
+    <h2>Running agents in parallel</h2>
+    <p class="why">This is where the speed comes from. One agent is an assistant. Three agents at once is a small team.</p>
+  </div>
+
+  <p>An agent can take several minutes on a real task. You don't have to sit and watch. In Claude Code you can <mark>start a session, give it a job, then start a second session</mark> while the first keeps working in the background. Each session is its own conversation with its own task. You bounce between them: check on one, answer a question it asked, approve a change, then hop back to the other.</p>
+
+  <figure>
+    <div class="diagram">
+      <svg viewBox="0 0 760 210" role="img" aria-label="Three sessions working at the same time while you check in on each one.">
+        <text x="20" y="22" class="s">TIME →</text>
+        <text x="20" y="62" class="t">Session A</text>
+        <rect x="130" y="44" width="560" height="28" rx="6" class="box-accent"/>
+        <text x="142" y="63" class="s">Build the services page</text>
+        <text x="20" y="112" class="t">Session B</text>
+        <rect x="210" y="94" width="400" height="28" rx="6" class="box-good"/>
+        <text x="222" y="113" class="s">Write SEO tags and sitemap</text>
+        <text x="20" y="162" class="t">Session C</text>
+        <rect x="300" y="144" width="260" height="28" rx="6" class="box"/>
+        <text x="312" y="163" class="s">Research hosting (read-only)</text>
+        <circle cx="230" cy="58" r="7" class="box-hl"/>
+        <circle cx="330" cy="108" r="7" class="box-hl"/>
+        <circle cx="420" cy="58" r="7" class="box-hl"/>
+        <circle cx="500" cy="158" r="7" class="box-hl"/>
+        <circle cx="590" cy="108" r="7" class="box-hl"/>
+        <circle cx="670" cy="58" r="7" class="box-hl"/>
+        <circle cx="140" cy="198" r="7" class="box-hl"/>
+        <text x="154" y="202" class="s">= you check in, answer a question, or approve a change</text>
+      </svg>
+    </div>
+    <figcaption>All three run at once. You're the manager moving between desks.</figcaption>
+  </figure>
+
+  <h3>Three ways to do it</h3>
+  <div class="grid2">
+    <div class="tile"><span class="label">Easiest</span><h4>Claude desktop app</h4><p>Open the Code tab and start a new session. Start another. Each shows in the sidebar with its status, so you can see which one is working, finished, or waiting on you. Click between them anytime.</p></div>
+    <div class="tile"><span class="label">Terminal</span><h4>Multiple tabs</h4><p>Open a second terminal tab, go to your project folder, and run <code>claude</code> again. Each tab is an independent session.</p></div>
+    <div class="tile"><span class="label">Cloud</span><h4>claude.ai/code</h4><p>Sessions run on Anthropic's machines, so they keep going even if you close your laptop. Check in from your phone.</p></div>
+    <div class="tile"><span class="label">Inside one session</span><h4>Subagents</h4><p>A single session can spin up helper agents for side jobs like searching a big codebase, then use their results.</p></div>
+  </div>
+
+  <h3>Keep them from stepping on each other</h3>
+  <p>Two agents editing the same file at the same time is like two people typing in one document. The fix is a <b>worktree</b>: a separate copy of your project folder on its own branch (more on branches in Module 08). The desktop app can create one for each session automatically. In the terminal you can make one yourself:</p>
+<pre><code><span class="c"># make a second copy of the project on a new branch</span>
+git worktree add ../my-site-seo -b seo-work
+
+<span class="c"># run a second agent in that copy</span>
+cd ../my-site-seo
+claude</code></pre>
+
+  <h3>Habits that make parallel work go smoothly</h3>
+  <ol class="steps">
+    <li><span>Give each session a <b>separate job that touches separate files</b>. "Services page" and "SEO tags" work well together. Two agents both "improving the homepage" will collide.</span></li>
+    <li><span>Write the request fully up front so the agent doesn't stall waiting for you. Say what "done" looks like.</span></li>
+    <li><span>Let a session that only reads or researches share the main folder. Give sessions that edit code their own worktree.</span></li>
+    <li><span>Review each session's changes before you merge them. Turn on notifications so you know when one finishes or needs approval.</span></li>
+    <li><span>Start with two at once. Three or four is plenty for most people; beyond that you spend all your time reviewing.</span></li>
+  </ol>
+
+  <div class="takeaways">
+    <span class="label">Takeaways</span>
+    <ul>
+      <li>Sessions keep working in the background while you switch to another.</li>
+      <li>Separate tasks, separate files, separate worktrees.</li>
+      <li>Your job is to keep each one unblocked and check what it built.</li>
+    </ul>
+  </div>
+  <details class="check"><summary><span>Quick check</span>Why would two agents editing the same project folder cause problems?</summary>
+    <div class="ans"><p>They can overwrite each other's changes to the same files. Giving each its own worktree (its own copy and branch) keeps the work separate until you merge it.</p></div>
+  </details>
+  <button class="complete" type="button" id="done-parallel" data-mod="parallel" aria-pressed="false"><span class="box"></span>Mark module complete</button>
+</section>
+
+<!-- ================= 06 ================= -->
+<section class="module" id="websites">
+  <div class="module-head">
+    <span class="label">Module 06 · 20 min</span>
+    <h2>How websites actually work</h2>
+    <p class="why">An agent can build a site in an hour. Getting it online for the world to see takes two more pieces.</p>
+  </div>
+
+  <p>Every website needs two things:</p>
+  <div class="grid2">
+    <div class="tile"><span class="label">The address</span><h4>A domain</h4><p>The name people type, like <code>billygoatlawn.com</code>. You rent it yearly from a <b>registrar</b> such as Cloudflare, Porkbun, Namecheap, or GoDaddy. Usually $10–20 a year for a .com.</p></div>
+    <div class="tile"><span class="label">The building</span><h4>A host</h4><p>A computer that's always on and connected, which stores your site's files and sends them to anyone who asks. Some hosts are free; others charge by usage.</p></div>
+  </div>
+  <p>Connecting them is <b>DNS</b> (Domain Name System), the internet's phone book. You set a DNS record at your registrar that says "this domain lives at that host."</p>
+
+  <figure>
+    <div class="diagram">
+      <svg viewBox="0 0 760 200" role="img" aria-label="A browser asks DNS where a domain lives, then requests the page from the host, which sends back the files.">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker>
+        </defs>
+        <rect x="20" y="70" width="150" height="62" rx="8" class="box-hl"/>
+        <text x="95" y="98" text-anchor="middle" class="t" style="fill:var(--hl-fg)">Visitor's browser</text>
+        <text x="95" y="117" text-anchor="middle" class="thl">types the domain</text>
+        <rect x="300" y="10" width="170" height="62" rx="8" class="box"/>
+        <text x="385" y="38" text-anchor="middle" class="t">DNS</text>
+        <text x="385" y="57" text-anchor="middle" class="s">"it lives at this host"</text>
+        <rect x="580" y="70" width="160" height="62" rx="8" class="box-accent"/>
+        <text x="660" y="98" text-anchor="middle" class="t">Host</text>
+        <text x="660" y="117" text-anchor="middle" class="s">stores your files</text>
+        <path d="M170 82 L298 48" class="line" marker-end="url(#ar2)"/>
+        <text x="200" y="52" class="s">1. where is it?</text>
+        <path d="M300 62 L172 96" class="line" marker-end="url(#ar2)"/>
+        <path d="M170 110 H578" class="line" marker-end="url(#ar2)"/>
+        <text x="300" y="104" class="s">2. send me the page</text>
+        <path d="M578 124 H172" class="line" marker-end="url(#ar2)"/>
+        <text x="300" y="146" class="s">3. here's the HTML, CSS, JS, images</text>
+        <text x="20" y="186" class="s">All of this happens in well under a second.</text>
+      </svg>
+    </div>
+  </figure>
+
+  <h3>Static vs. dynamic sites</h3>
+  <p>This decides where you can host.</p>
+  <div class="grid2">
+    <div class="tile"><span class="label">Static</span><h4>Same files for everyone</h4><p>A business brochure site: home, services, gallery, about, contact info. Just HTML, CSS, JavaScript and images. <b>GitHub Pages hosts this for free</b>, with your own domain and HTTPS. A contact form can still work through a service like Formspree.</p></div>
+    <div class="tile"><span class="label">Dynamic</span><h4>Server does work per visitor</h4><p>Anything with user accounts, a database, payments, bookings, admin dashboards, or code that must stay secret (like API keys). These need a host that can run <b>server code</b> and store data.</p></div>
+  </div>
+
+  <h3>Where to host what</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Host</th><th>Good for</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>GitHub Pages</td><td>Static sites: portfolios, small business sites, docs</td><td>Free</td></tr>
+        <tr><td>Netlify / Vercel</td><td>Static sites plus small server functions; modern frameworks like Next.js</td><td>Free tier, then paid</td></tr>
+        <tr><td>Firebase</td><td>Google's toolkit: hosting, user login, a database, file storage, server functions. Great for apps with accounts.</td><td>Free tier, pay as you grow</td></tr>
+        <tr><td>Supabase</td><td>A database with login and storage built in; pairs with Netlify or Vercel</td><td>Free tier, then paid</td></tr>
+        <tr><td>Railway</td><td>Run any server and database with almost no setup. Great when your app has a real backend.</td><td>Pay for what you use, a few dollars a month for small apps</td></tr>
+        <tr><td>Render</td><td>Similar to Railway: servers, databases, scheduled jobs</td><td>Free tier, then paid</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <span class="label">Rule of thumb</span>
+    <p>Start with the simplest host that does the job. If it's static, use GitHub Pages. Move to Firebase, Railway or similar only when you need logins, a database, or server code. When in doubt, describe your site to your agent and ask, "What's the simplest hosting that supports this?"</p>
+  </div>
+
+  <div class="takeaways">
+    <span class="label">Takeaways</span>
+    <ul>
+      <li>Domain = address. Host = building. DNS = phone book linking them.</li>
+      <li>Static sites can live free on GitHub Pages.</li>
+      <li>Accounts, databases, or payments mean a host like Firebase or Railway.</li>
+    </ul>
+  </div>
+  <details class="check"><summary><span>Quick check</span>A lawn care company wants customers to log in and book appointments. Can it stay on GitHub Pages?</summary>
+    <div class="ans"><p>Not for the booking part. Logins and appointment data need a database and server code, so it needs Firebase, Supabase, Railway, or a booking service embedded in the site.</p></div>
+  </details>
+  <button class="complete" type="button" id="done-websites" data-mod="websites" aria-pressed="false"><span class="box"></span>Mark module complete</button>
+</section>
+
+<!-- ================= 07 ================= -->
+<section class="module" id="stacks">
+  <div class="module-head">
+    <span class="label">Module 07 · 15 min</span>
+    <h2>Tech stacks</h2>
+    <p class="why">When an agent asks "what stack do you want?", this is what it means.</p>
+  </div>
+
+  <p>A <mark>tech stack</mark> is the set of technologies a site or app is built from, stacked in layers. Like a house: foundation, frame, plumbing, paint. Each layer has a few common choices.</p>
+
+  <div class="grid2">
+    <div class="tile"><span class="label">What you see</span><h4>Frontend</h4><p>What runs in the visitor's browser. HTML (structure), CSS (style), JavaScript (behavior). Often with a framework like <b>React</b>, <b>Vue</b>, <b>Svelte</b>, or <b>Astro</b>.</p></div>
+    <div class="tile"><span class="label">The brains</span><h4>Backend</h4><p>Code on the server: handles logins, saves data, takes payments. Often <b>Node.js</b>, <b>Python</b>, or <b>PHP</b>.</p></div>
+    <div class="tile"><span class="label">The memory</span><h4>Database</h4><p>Where data lives: users, orders, bookings. <b>PostgreSQL</b>, <b>MySQL</b>, <b>Firestore</b>, <b>SQLite</b>.</p></div>
+    <div class="tile"><span class="label">The extras</span><h4>Services</h4><p>Things you plug in instead of building: <b>Stripe</b> for payments, <b>Resend</b> or <b>SendGrid</b> for email, <b>Clerk</b> or Firebase Auth for login.</p></div>
+  </div>
+
+  <h3>Common stacks and who uses them</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stack</th><th>Layers</th><th>Typical site</th></tr></thead>
+      <tbody>
+        <tr><td>Plain static</td><td>HTML + CSS + JS → GitHub Pages</td><td>Small business site, portfolio, landing page</td></tr>
+        <tr><td>Modern static</td><td>Astro or Next.js → Netlify / Vercel</td><td>Blogs, marketing sites, docs with lots of pages</td></tr>
+        <tr><td>Firebase app</td><td>React + Firebase Auth + Firestore + Firebase Hosting</td><td>Apps with logins and live data, like a booking tool</td></tr>
+        <tr><td>Full-stack JS</td><td>React + Node/Express + PostgreSQL → Railway</td><td>Custom web apps, dashboards, SaaS products</td></tr>
+        <tr><td>Next.js + Supabase</td><td>Next.js + Supabase (Postgres, auth) → Vercel</td><td>A very popular choice for AI-built startups</td></tr>
+        <tr><td>WordPress (LAMP)</td><td>Linux + Apache + MySQL + PHP</td><td>About 40% of the web; blogs and business sites</td></tr>
+        <tr><td>No-code</td><td>Squarespace, Wix, Shopify</td><td>Owners who want to edit without code; online stores</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <span class="label">Working with agents</span>
+    <p>Tell the agent your stack at the start, or ask it to recommend the simplest one that fits your needs. Popular, "boring" stacks work best with AI because the models have seen millions of examples of them. Put the stack in your project notes (like CLAUDE.md) so every session follows it.</p>
+  </div>
+
+  <div class="takeaways">
+    <span class="label">Takeaways</span>
+    <ul>
+      <li>Stack = frontend + backend + database + hosting + services.</li>
+      <li>More features usually means more layers.</li>
+      <li>Popular stacks get better AI results.</li>
+    </ul>
+  </div>
+  <details class="check"><summary><span>Quick check</span>Which layer would you add if your static site suddenly needed to save customer reviews?</summary>
+    <div class="ans"><p>A database, plus something to write to it safely (a backend or a service like Firebase or Supabase).</p></div>
+  </details>
+  <button class="complete" type="button" id="done-stacks" data-mod="stacks" aria-pressed="false"><span class="box"></span>Mark module complete</button>
+</section>
+
+<!-- ================= 08 ================= -->
+<section class="module" id="github">
+  <div class="module-head">
+    <span class="label">Module 08 · 25 min</span>
+    <h2>GitHub: your project's home base</h2>
+    <p class="why">Undo button, backup, collaboration space, and free web host in one.</p>
+  </div>
+
+  <p><b>Git</b> is a program that tracks every change to a folder of files. <b>GitHub</b> is a website that stores those git-tracked folders online so you and others can reach them from anywhere. Git is the tool; GitHub is where you keep the results.</p>
+
+  <h3>The pieces</h3>
+  <div class="grid2">
+    <div class="tile"><h4>Repository (repo)</h4><p>One project folder with its full history. Your website is one repo. Can be public or private.</p></div>
+    <div class="tile"><h4>Commit</h4><p>A saved snapshot with a short note about what changed: "Add services page." You can jump back to any commit.</p></div>
+    <div class="tile"><h4>Branch</h4><p>A parallel version to try changes without touching the main one. <code>main</code> is the official version.</p></div>
+    <div class="tile"><h4>Pull request (PR)</h4><p>A request to merge a branch into <code>main</code>. Others (or you) review the changes first.</p></div>
+    <div class="tile"><h4>Push / pull</h4><p><b>Push</b> uploads your commits to GitHub. <b>Pull</b> downloads changes others made.</p></div>
+    <div class="tile"><h4>Clone</h4><p>Download a full copy of a repo to your computer to work on it.</p></div>
+  </div>
+
+  <h3>Why it's so useful</h3>
+  <ul>
+    <li><b>Time machine.</b> An agent broke something? Go back to the last good commit in seconds.</li>
+    <li><b>Backup.</b> Your laptop dies, your project is safe online.</li>
+    <li><b>Teamwork.</b> Several people (or several agents) work on separate branches, then merge through pull requests. GitHub shows exactly who changed what.</li>
+    <li><b>Hosting.</b> GitHub Pages turns a repo into a live website for free.</li>
+    <li><b>Auto-deploy.</b> Netlify, Vercel, Railway and Firebase can watch your repo and redeploy every time you push.</li>
+    <li><b>Agents love it.</b> Claude Code and Codex make commits, branches and pull requests for you. You mostly review and click merge.</li>
+  </ul>
+
+  <h3>A basic setup</h3>
+  <ol class="steps">
+    <li><span>Create a free account at github.com and turn on two-factor authentication.</span></li>
+    <li><span>Install git (already on most Macs) or <b>GitHub Desktop</b> if you prefer buttons over commands. Also install the <code>gh</code> command-line tool; agents use it to work with GitHub.</span></li>
+    <li><span>Create a new repository on GitHub. Add a README (the project's front page) and a <code>.gitignore</code> (files git should skip).</span></li>
+    <li><span>Clone it to your computer, or ask your agent: "Put this folder on GitHub as a private repo."</span></li>
+    <li><span>Work, commit, push. Repeat. Commit small and often with clear notes.</span></li>
+    <li><span>For a static site: repo <b>Settings → Pages</b>, choose the <code>main</code> branch, and your site goes live. Add your custom domain there too.</span></li>
+    <li><span>Invite collaborators under <b>Settings → Collaborators</b> so others can push or review.</span></li>
+  </ol>
+
+  <p>The everyday commands, if you're doing it by hand:</p>
+<pre><code>git clone https://github.com/you/my-site.git   <span class="c"># get a copy</span>
+git status                                       <span class="c"># what changed?</span>
+git add .                                        <span class="c"># stage the changes</span>
+git commit -m "Add services page"                <span class="c"># save a snapshot</span>
+git push                                         <span class="c"># upload to GitHub</span>
+git pull                                         <span class="c"># get others' changes</span></code></pre>
+
+  <div class="callout warn">
+    <span class="label">Never commit secrets</span>
+    <p>Passwords, API keys and tokens never go in a repo, especially a public one. Bots scan GitHub for leaked keys within minutes. Keep them in a <code>.env</code> file that's listed in <code>.gitignore</code>, and in your host's settings for the live site.</p>
+  </div>
+
+  <div class="takeaways">
+    <span class="label">Takeaways</span>
+    <ul>
+      <li>Repo = project. Commit = snapshot. Branch = safe sandbox. PR = review before merging.</li>
+      <li>GitHub is your undo button, backup, team space and free host.</li>
+      <li>Keep secrets out of the repo.</li>
+    </ul>
+  </div>
+  <details class="check"><summary><span>Quick check</span>An agent made a mess of your homepage an hour ago. How does GitHub help?</summary>
+    <div class="ans"><p>Every commit is a snapshot. You (or the agent) can restore the homepage file from the last good commit, or revert the bad commit entirely.</p></div>
+  </details>
+  <button class="complete" type="button" id="done-github" data-mod="github" aria-pressed="false"><span class="box"></span>Mark module complete</button>
+</section>
+
+<!-- ================= 09 ================= -->
+<section class="module" id="final">
+  <div class="module-head">
+    <span class="label">Module 09 · a weekend</span>
+    <h2>Final project: ship a real site</h2>
+    <p class="why">Put every module together once and it all sticks.</p>
+  </div>
+
+  <p>Build a small website for a real business, hobby, or yourself, and get it live on your own domain.</p>
+  <ol class="steps">
+    <li><span><b>Plan in chat.</b> Ask an LLM to help you outline the pages and pick the simplest stack. (Module 02, 07)</span></li>
+    <li><span><b>Create the repo.</b> New GitHub repo with a README. (Module 08)</span></li>
+    <li><span><b>Build with an agent.</b> Open Claude Code, Codex, or Antigravity in the project and describe the site. (Module 03)</span></li>
+    <li><span><b>Make the media.</b> A logo or hero image with Nano Banana or ChatGPT Images; a short clip with Veo or Seedance if you want one. (Module 04)</span></li>
+    <li><span><b>Go parallel.</b> While one session builds pages, start a second for SEO tags and a third to research hosting. (Module 05)</span></li>
+    <li><span><b>Publish.</b> Turn on GitHub Pages, buy a domain, point its DNS at GitHub. (Module 06)</span></li>
+    <li><span><b>Share and keep up.</b> Post your build in r/vibecoding for feedback, and keep the daily skim going. (Module 01)</span></li>
+  </ol>
+
+  <div class="callout">
+    <span class="label">Graduation requirement</span>
+    <p>Send your brother the link.</p>
+  </div>
+
+  <button class="complete" type="button" id="done-final" data-mod="final" aria-pressed="false"><span class="box"></span>Mark module complete</button>
+</section>
+
+  </main>
+</div>
+
+<footer>
+  <p>Tool versions, prices and features change constantly. Facts here were checked in October 2026; confirm with each company's own site before you rely on a detail. Your progress is saved in this browser only.</p>
+</footer>
+
+<script>
+(function () {
+  var KEY = "ai101-progress";
+  var mods = ["keep-up","llm-vs-agent","harnesses","media","parallel","websites","stacks","github","final"];
+  var done = {};
+  try { done = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { done = {}; }
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(done)); } catch (e) {} }
+  function render() {
+    var count = 0;
+    mods.forEach(function (m) {
+      var on = !!done[m];
+      if (on) count++;
+      var btn = document.getElementById("done-" + m);
+      if (btn) {
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+        btn.lastChild.textContent = on ? "Completed" : "Mark module complete";
+      }
+      var link = document.querySelector('#toc a[data-mod="' + m + '"]');
+      if (link) link.classList.toggle("done", on);
+    });
+    document.getElementById("progress-text").textContent = count + " / " + mods.length + " done";
+    document.getElementById("progress-bar").style.width = (count / mods.length * 100) + "%";
+  }
+  document.querySelectorAll(".complete").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var m = b.getAttribute("data-mod");
+      done[m] = !done[m];
+      save(); render();
+    });
+  });
+  render();
+
+  // Collapse the syllabus on phones; keep it open on desktop.
+  var syl = document.getElementById("syllabus");
+  var mq = window.matchMedia("(max-width: 900px)");
+  if (mq.matches) syl.open = false;
+  document.querySelectorAll("#toc a").forEach(function (a) {
+    a.addEventListener("click", function () { if (mq.matches) syl.open = false; });
+  });
+
+  // Highlight the module being read.
+  if ("IntersectionObserver" in window) {
+    var links = {};
+    document.querySelectorAll("#toc a").forEach(function (a) { links[a.getAttribute("data-mod")] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          Object.keys(links).forEach(function (k) { links[k].classList.remove("active"); });
+          if (links[e.target.id]) links[e.target.id].classList.add("active");
+        }
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    mods.forEach(function (m) { var s = document.getElementById(m); if (s) io.observe(s); });
+  }
+
+  // Open the module named in the link, e.g. #parallel.
+  var h = location.hash.slice(1);
+  if (h && mods.indexOf(h) > -1) {
+    var target = document.getElementById(h);
+    if (target) setTimeout(function () { target.scrollIntoView(); }, 50);
+  }
+})();
+</script>
+</body>
+</html>
